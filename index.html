@@ -1,0 +1,49 @@
+---
+layout: null
+---
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>My Daily Logs Logbook</title>
+    <style>
+        body { font-family: -apple-system, sans-serif; background: #f9f9f9; padding: 40px; color: #333; }
+        .container { max-width: 800px; margin: 0 auto; }
+        h1 { border-bottom: 2px solid #ddd; padding-bottom: 10px; }
+        
+        /* Grid Layout for Logs */
+        .log-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 20px; margin-top: 30px; }
+        .log-card { background: white; border: 1px solid #e0e0e0; padding: 20px; border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.05); }
+        .log-date { color: #888; font-size: 0.85rem; margin-bottom: 8px; }
+        .log-card h3 { margin: 0 0 10px 0; font-size: 1.2rem; }
+        .log-card h3 a { color: #0066cc; text-decoration: none; }
+        
+        /* Tag Label Badges */
+        .tag-badge { display: inline-block; background: #eef2f7; color: #4a5568; font-size: 0.75rem; padding: 3px 8px; margin: 3px; border-radius: 4px; text-decoration: none; }
+        .tag-badge:hover { background: #0066cc; color: white; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>📖 My Personal Daily Journey</h1>
+        <p>A chronologically sorted overview of daily notes and labels.</p>
+
+        <!-- Dynamic Grid of Post Cards -->
+        <div class="log-grid">
+            {% for post in site.posts %}
+            <div class="log-card">
+                <div class="log-date">{{ post.date | date: "%Y-%m-%d" }}</div>
+                <h3><a href="{{ post.url | relative_url }}">{{ post.title }}</a></h3>
+                
+                <!-- Inner loop listing labels on the card -->
+                <div>
+                    {% for tag in post.tags %}
+                        <a href="{{ '/tags.html' | relative_url }}#{{ tag }}" class="tag-badge">#{{ tag }}</a>
+                    {% endfor %}
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</body>
+</html>
