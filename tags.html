@@ -1,0 +1,43 @@
+---
+layout: null
+---
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Filter Logs by Labels</title>
+    <style>
+        body { font-family: -apple-system, sans-serif; background: #f9f9f9; padding: 40px; }
+        .container { max-width: 800px; margin: 0 auto; }
+        h1 { border-bottom: 2px solid #ddd; padding-bottom: 10px; }
+        .nav-link { display: inline-block; margin-bottom: 20px; color: #0066cc; text-decoration: none; }
+        .tag-section { background: white; padding: 25px; border-radius: 8px; margin-bottom: 25px; border: 1px solid #e0e0e0; }
+        .tag-title { color: #d32f2f; margin-top: 0; border-left: 4px solid #d32f2f; padding-left: 10px; }
+        ul { list-style-type: none; padding: 0; }
+        li { padding: 8px 0; border-bottom: 1px solid #eee; }
+        li span { color: #888; font-size: 0.9rem; margin-right: 15px; }
+        li a { color: #0066cc; text-decoration: none; font-weight: bold; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <a href="{{ '/' | relative_url }}" class="nav-link">← Back to Homepage</a>
+        <h1>🏷️ Browse Log Entries by Category</h1>
+
+        <!-- Jekyll dynamically splits and groups every unique tag string -->
+        {% for tag in site.tags %}
+        <div class="tag-section" id="{{ tag[0] }}">
+            <h2 class="tag-title">Entries marked with: "{{ tag[0] }}"</h2>
+            <ul>
+                {% for post in tag[1] %}
+                <li>
+                    <span>{{ post.date | date: "%Y-%m-%d" }}</span>
+                    <a href="{{ post.url | relative_url }}">{{ post.title }}</a>
+                </li>
+                {% endfor %}
+            </ul>
+        </div>
+        {% endfor %}
+    </div>
+</body>
+</html>
